@@ -8,8 +8,6 @@ TaskListApp is a full-stack task management application deployed on AWS. The app
 - [Features](#features)
 - [Prerequisites](#prerequisites)
 - [Setup and Deployment](#setup-and-deployment)
-- [Usage](#usage)
-- [Monitoring](#monitoring)
 
 ## Architecture
 
