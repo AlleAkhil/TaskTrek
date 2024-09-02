@@ -1,1 +1,1 @@
-export const API_URL = import.meta.env.VITE_API_URL;
+export const API_URL = 'https://cm3iq7j3skh5qyigrwrxovpipa0sjttw.lambda-url.us-east-1.on.aws/task';
