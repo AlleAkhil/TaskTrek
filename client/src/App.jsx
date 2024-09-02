@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import Add from './components/Add.jsx'
+import React, { useState, useEffect } from 'react';
+import Add from './components/Add.jsx';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Task from './components/Task.jsx';
@@ -13,12 +13,12 @@ const darkTheme = createTheme({
 });
 
 const App = () => {
-  const { task, setTask } = useState([]);
+  const [task, setTask] = useState([]); // Corrected state declaration
 
   const fetchTasks = async () => {
     try {
       const { data } = await axios.get(API_URL);
-      setTask(data)
+      setTask(data);
     } catch (err) {
       console.log(err);
     }
@@ -33,10 +33,10 @@ const App = () => {
       <CssBaseline />
       <Add fetchTasks={fetchTasks} />
       {task.map((task) => (
-        <Task task={task} key={fetchTasks.id} fetchTasks={fetchTasks} />
+        <Task task={task} key={task.id} fetchTasks={fetchTasks} /> // Corrected key prop
       ))}
     </ThemeProvider>
-  )
-}
+  );
+};
 
-export default App
+export default App;

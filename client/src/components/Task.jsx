@@ -2,12 +2,12 @@ import { Button, Checkbox, Typography } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import React, { useState } from "react";
-import Update from "./UpdateTaskForm";
+import Update from "./Update.jsx";
 import classnames from "classnames";
 import axios from "axios";
-import { API_URL } from "../utils";
+import { API_URL } from "./utils";
 
-export const Task = ({ task, fetchTasks }) => {
+const Task = ({ task, fetchTasks }) => {
     const { id, name, completed } = task;
     const [isComplete, setIsComplete] = useState(completed);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -62,3 +62,5 @@ export const Task = ({ task, fetchTasks }) => {
         </div>
     );
 };
+
+export default Task
