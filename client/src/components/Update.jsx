@@ -2,12 +2,26 @@ import React, { useState } from "react";
 import { Button, Dialog, DialogTitle, TextField } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import axios from "axios";
-// import { API_URL } from "../utils";
+import { API_URL } from "../utils";
 
 
-const Update = ({ isDialogOpen, setIsDialogOpen, task }) => {
+const Update = ({ fetchTasks, isDialogOpen, setIsDialogOpen, task }) => {
     const { id, completed } = task;
     const [taskName, setTaskName] = useState(" ");
+
+    const handleUpdateTaskName = async () => {
+        try {
+            await axios.put(API_URL, {
+                id,
+                name: taskName,
+                completed
+            })
+            await fetchTasks();
+            setTaskName("");
+        } catch (err) {
+            console.log(err);
+        }
+    }
     return (
         <Dialog open={isDialogOpen}>
             <DialogTitle>Edit Task</DialogTitle>
@@ -20,7 +34,8 @@ const Update = ({ isDialogOpen, setIsDialogOpen, task }) => {
                 />
                 <Button
                     variant="contained"
-                    onClick={() => {
+                    onClick={async () => {
+                        await handleUpdateTaskName();
                         setIsDialogOpen(false);
                     }}
                 >

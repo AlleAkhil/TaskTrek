@@ -3,12 +3,25 @@ import TextField from '@mui/material/TextField';
 import { Button, Typography } from '@mui/material';
 import AddIcon from "@mui/icons-material/Add";
 import axios from "axios";
+import { API_URL } from './utils';
 
-const Add = () => {
+// eslint-disable-next-line react/prop-types
+const Add = ({ fetchTasks }) => {
     const [newTask, setNewTask] = useState("");
 
-    const addNewTask = () => {
-        console.log("Add new task is clicked");
+    const addNewTask = async () => {
+        try {
+            await axios.post(API_URL, {
+                name: newTask,
+                completed: false,
+            });
+
+            await fetchTasks();
+
+            setNewTask("");
+        } catch (err) {
+            console.log(err);
+        }
     }
     return (
         <div>

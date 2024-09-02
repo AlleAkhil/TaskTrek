@@ -2,23 +2,39 @@ import { Button, Checkbox, Typography } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import React, { useState } from "react";
-import Update from "./Update.jsx";
+import Update from "./UpdateTaskForm";
 import classnames from "classnames";
 import axios from "axios";
-// import { API_URL } from "../utils";
+import { API_URL } from "../utils";
 
-const Task = ({ task }) => {
+export const Task = ({ task, fetchTasks }) => {
     const { id, name, completed } = task;
     const [isComplete, setIsComplete] = useState(completed);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-    const handleUpdateTaskCompletion = () => {
-        setIsComplete((prev) => !prev);
-    }
+    const handleUpdateTaskCompletion = async () => {
+        try {
+            await axios.put(API_URL, {
+                id,
+                name,
+                completed: !isComplete,
+            });
+            setIsComplete((prev) => !prev);
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
-    const handleDeleteTask = () => {
-        console.log("Task Deleted")
-    }
+    const handleDeleteTask = async () => {
+        try {
+            await axios.delete(`${API_URL}/${task.id}`);
+
+            await fetchTasks();
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     return (
         <div className="task">
             <div
@@ -38,12 +54,11 @@ const Task = ({ task }) => {
                 </Button>
             </div>
             <Update
+                fetchTasks={fetchTasks}
                 isDialogOpen={isDialogOpen}
                 setIsDialogOpen={setIsDialogOpen}
                 task={task}
             />
         </div>
-    )
-}
-
-export default Task
+    );
+};
